@@ -1,0 +1,22 @@
+lv5. 그 외의 수정
+
+1. [문제 인식 및 정의]
+    manager_목록_조회_시_Todo가_없다면_NPE_에러를_던진다 테스트 실패
+    테스트를 전부 돌리던중 fail이 뜨는 테스트 발견. 수정결정.
+
+2. [해결 방안]
+    테스트 결과에서 exception.getMessage() 부분의 차이인것으로 확인
+    ManagerService와 비교 결과 63줄 orElseThrow로 던진 예외의 메시지가 expect값이랑 다름을 확인
+      expected = Manager not found, result = Todo not found
+    테스트조건과 서비스 로직 정리결과 테스트조건으로 todoId = 1 을 제공하고 findbyId 결과로써 빈 Optional을 제공함을 확인.
+    서비스 로직 중 todoRepository.findById에  orElseThrow로 InvalidRequestException("Todo not found") 예외 확인
+    위에서 확인한 예외 외의 사용자 정의 예외 메시지 없음을 확인.
+    테스트 통과 방법으로 3가지 안이 가능하다 판단.
+    1. 테스트조건을 빈 Optional이 아닌 manager가 비어있는 todo를 제공하고 service로직 변경 및 예외 추가
+    2. 서비스로직의 예외 메시지 변경
+    3. 테스트 예측 결과 변경
+    일련의 과정으로 보아 서비스로직에 특수상황에 예외가 없는 경우가 발견되어 예외를 던지는 로직 추가
+    테스트는 manager가 채워지지않고 user가 없는 새로운 Todo를 Optional로 제공하는것으로 변경.
+3. [해결 완료]
+    managerService단에서 놓친 예외를 추가로 작성, 테스트 조건을 좀 더 구체화하여 다른 예외조건에 안걸리도록 수정.
+    특수상황에 대해 예외가 없는 구간을 사용자 지정 예외를 두어 처리.

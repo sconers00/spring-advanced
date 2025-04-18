@@ -42,7 +42,8 @@ class ManagerServiceTest {
     public void manager_목록_조회_시_Todo가_없다면_NPE_에러를_던진다() {
         // given
         long todoId = 1L;
-        given(todoRepository.findById(todoId)).willReturn(Optional.empty());
+        Todo todo = new Todo("title","contents","weather",null);
+        given(todoRepository.findById(todoId)).willReturn(Optional.of(todo));
 
         // when & then
         InvalidRequestException exception = assertThrows(InvalidRequestException.class, () -> managerService.getManagers(todoId));
