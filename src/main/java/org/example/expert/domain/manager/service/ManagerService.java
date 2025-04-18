@@ -63,7 +63,9 @@ public class ManagerService {
                 .orElseThrow(() -> new InvalidRequestException("Todo not found"));
 
         List<Manager> managerList = managerRepository.findByTodoIdWithUser(todo.getId());
-
+        if(managerList.isEmpty()){
+            throw new InvalidRequestException("Manager not found");
+        }
         List<ManagerResponse> dtoList = new ArrayList<>();
         for (Manager manager : managerList) {
             User user = manager.getUser();
