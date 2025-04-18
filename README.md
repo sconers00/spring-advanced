@@ -22,6 +22,7 @@ add domain/common/interceptor/AdminApiInterceptor.java [main]
 
 5   domain/manager/service/ManagerService/java [main]
     domain/manager/service/ManagerServiceTest.java [test]
+    
 lv.6 테스트 커버리지
 ![pet](https://github.com/user-attachments/assets/5bdf43eb-8744-411b-9af9-9fe43c4c1ed7)
 ![cst](https://github.com/user-attachments/assets/8ffcf956-c891-4397-a7f2-8cab2cc1c8d1)
